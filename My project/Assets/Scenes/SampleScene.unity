@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   movSpeed: 4
+  jump: 5
   rb: {fileID: 1454351112}
 --- !u!1 &1998232602
 GameObject:
@@ -577,8 +578,8 @@ GameObject:
   - component: {fileID: 1998232605}
   - component: {fileID: 1998232604}
   - component: {fileID: 1998232603}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 6
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
