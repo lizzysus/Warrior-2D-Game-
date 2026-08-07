@@ -11,16 +11,20 @@ public class Player : MonoBehaviour
 
     [Header("Collision & Component")]
     [SerializeField] private Rigidbody2D rb;
+    private Animator anim;
+    private bool isMoving;
    
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
         HandleMovement();
+        HandleAnimation();
     }
 
     private void HandleMovement() 
@@ -30,7 +34,7 @@ public class Player : MonoBehaviour
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        if(charInp > 0 && isFacingRight) 
+        if(charInp > 0 && isFacingRight ) 
         {
             Flip();
         }
@@ -76,5 +80,11 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    private void HandleAnimation() 
+    {
+        bool isMoving = charInp != 0;
+        anim.SetBool("isMoving", isMoving);
     }
 }
