@@ -84,7 +84,8 @@ public class Player : MonoBehaviour
 
     private void HandleAnimation() 
     {
-        bool isMoving = charInp != 0;
-        anim.SetBool("isMoving", isMoving);
+        anim.SetFloat("xVelocity", rb.linearVelocity.x);
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 }
