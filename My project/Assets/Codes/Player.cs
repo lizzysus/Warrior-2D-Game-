@@ -8,13 +8,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float jump;
     private bool isFacingRight;
     private bool isGrounded;
+    private bool canMove = true;
+    private bool canJump = true;
 
     [Header("Collision & Component")]
     [SerializeField] private Rigidbody2D rb;
     private Animator anim;
-    private bool isMoving;
-   
-
+ 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,7 +30,11 @@ public class Player : MonoBehaviour
     private void HandleMovement() 
     {
         charInp = (Input.GetAxisRaw("Horizontal"));
+
+        if(canMove)
         rb.linearVelocity = new Vector2(charInp * movSpeed, rb.linearVelocity.y);
+        else
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
@@ -51,12 +55,27 @@ public class Player : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(charInp * movSpeed, rb.linearVelocity.y);
         }
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            AttemptToAttack();
+        }
          
     }
 
     private void Jump() 
     {
+        if(isGrounded && canJump)
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jump);
+    }
+
+    private void AttemptToAttack() 
+    {
+        if (isGrounded)
+        {
+            anim.SetTrigger("isAttacking");
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        
+        }
     }
 
     private void Flip() 
@@ -88,4 +107,12 @@ public class Player : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
+
+    public void EnableJumpMovement(bool enable)  
+    {
+        canMove = enable;
+        canJump = enable;
+    }
+
+
 }
