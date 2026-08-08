@@ -18,4 +18,9 @@ public class AnimationEvenetHandle : MonoBehaviour
     {
         player.EnableJumpMovement(true);
     }
+
+    public void DamageEnemy() 
+    {
+        player.DamageEnemies();
+    }
 }
